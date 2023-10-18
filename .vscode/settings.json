@@ -1,11 +1,12 @@
 {
-    "editor.formatOnSave": true,
-    "typescript.tsdk": "./app/node_modules/typescript/lib",
-    "[javascript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescriptreact]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
-  }
-  
+  "editor.formatOnSave": true,
+  "typescript.tsdk": "./app/node_modules/typescript/lib",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "solidity.packageDefaultDependenciesDirectory": "/contracts/node_modules",
+  "solidity.compileUsingRemoteVersion": "v0.8.20+commit.a1b79de6"
+}
