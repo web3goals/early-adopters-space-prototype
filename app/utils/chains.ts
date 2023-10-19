@@ -4,6 +4,7 @@ interface ChainConfig {
   chain: Chain;
   contracts: {
     profile: `0x${string}`;
+    project: `0x${string}`;
   };
 }
 
@@ -18,6 +19,8 @@ export function getSupportedChainConfigs(): ChainConfig[] {
       contracts: {
         profile: process.env
           .NEXT_PUBLIC_POLYGON_MUMBAI_PROFILE_CONTRACT_ADDRESS as `0x${string}`,
+        project: process.env
+          .NEXT_PUBLIC_POLYGON_MUMBAI_PROJECT_CONTRACT_ADDRESS as `0x${string}`,
       },
     });
   }

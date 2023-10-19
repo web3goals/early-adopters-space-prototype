@@ -11,3 +11,10 @@ export type ProfileUriData = {
     { trait_type: "instagram"; value: string }
   ];
 };
+
+export type ProjectUriData = {
+  title: string;
+  description: string;
+  link: string;
+  image: string;
+};
