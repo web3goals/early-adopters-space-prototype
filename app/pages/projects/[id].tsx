@@ -32,10 +32,14 @@ export default function Project() {
       {id && owner ? (
         <>
           <ProjectDescription id={id as string} owner={owner as string} />
-          <ThickDivider sx={{ mt: 4 }} />
-          <ProjectActivities id={id as string} sx={{ mt: 4 }} />
-          <ThickDivider sx={{ mt: 4 }} />
-          <ProjectCompletedActivities id={id as string} sx={{ mt: 4 }} />
+          <ThickDivider sx={{ mt: 6 }} />
+          <ProjectActivities
+            id={id as string}
+            owner={owner as string}
+            sx={{ mt: 6 }}
+          />
+          <ThickDivider sx={{ mt: 6 }} />
+          <ProjectCompletedActivities id={id as string} sx={{ mt: 6 }} />
         </>
       ) : (
         <FullWidthSkeleton />

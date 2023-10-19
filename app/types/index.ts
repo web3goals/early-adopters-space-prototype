@@ -18,3 +18,7 @@ export type ProjectUriData = {
   link: string;
   image: string;
 };
+
+export type ProjectActivityDetailsUriData = {
+  content: string;
+};
