@@ -20,6 +20,11 @@ const config: HardhatUserConfig = {
       accounts: accounts,
     },
   },
+  etherscan: {
+    apiKey: {
+      polygonMumbai: process.env.ETHERSCAN_API_KEY_POLYGON_MUMBAI as string,
+    },
+  },
 };
 
 export default config;
