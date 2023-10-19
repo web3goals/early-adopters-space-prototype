@@ -1,22 +1,45 @@
-export const ACTIVITY_TYPES = ["SEND_FEEDBACK", "FOLLOW_TWITTER"];
+export const ACTIVITY_TYPE_SEND_FEEDBACK = "SEND_FEEDBACK";
+export const ACTIVITY_TYPE_FOLLOW_TWITTER = "FOLLOW_TWITTER";
+export const ACTIVITY_TYPES = [
+  ACTIVITY_TYPE_SEND_FEEDBACK,
+  ACTIVITY_TYPE_FOLLOW_TWITTER,
+];
 export const ACTIVITY_TYPE_PARAMS: {
   [key: string]: {
     title: string;
-    contentTitle: string;
-    contentPlaceholder: string;
+    addActivityForm: {
+      contentFieldTitle: string;
+      contentFieldPlaceholder: string;
+    };
+    completeActivityForm: {
+      contentFieldTitle: string;
+      contentFieldPlaceholder: string;
+    };
     icon: string;
   };
 } = {
-  SEND_FEEDBACK: {
+  [ACTIVITY_TYPE_SEND_FEEDBACK]: {
     title: "Send feedback",
-    contentTitle: "Comment",
-    contentPlaceholder: "Try creating an account...",
+    addActivityForm: {
+      contentFieldTitle: "Comment",
+      contentFieldPlaceholder: "Try creating an account...",
+    },
+    completeActivityForm: {
+      contentFieldTitle: "Feedback",
+      contentFieldPlaceholder: "UX is awesome, but...",
+    },
     icon: "🗣️",
   },
-  FOLLOW_TWITTER: {
+  [ACTIVITY_TYPE_FOLLOW_TWITTER]: {
     title: "Follow us on Twitter",
-    contentTitle: "Handle",
-    contentPlaceholder: "@familyfinance",
+    addActivityForm: {
+      contentFieldTitle: "Handle",
+      contentFieldPlaceholder: "@familyfinance",
+    },
+    completeActivityForm: {
+      contentFieldTitle: "Handle",
+      contentFieldPlaceholder: "@bobemerson",
+    },
     icon: "🐥",
   },
 };

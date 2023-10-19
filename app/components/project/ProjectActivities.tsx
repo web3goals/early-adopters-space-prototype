@@ -12,6 +12,7 @@ import { useAccount, useContractRead, useNetwork } from "wagmi";
 import EntityList from "../entity/EntityList";
 import { CardBox, MediumLoadingButton } from "../styled";
 import ProjectAddActivityDialog from "./ProjectAddActivityDialog";
+import ProjectCompleteActivityDialog from "./ProjectCompleteActivityDialog";
 
 /**
  * A component with project activities.
@@ -65,7 +66,12 @@ export default function ProjectActivities(props: {
       <EntityList
         entities={activities as any[]}
         renderEntityCard={(activity, index) => (
-          <ActivityCard activity={activity} key={index} />
+          <ActivityCard
+            id={props.id}
+            activity={activity}
+            activityIndex={index}
+            key={index}
+          />
         )}
         noEntitiesText="😐 no activities"
         sx={{ mt: 2 }}
@@ -74,8 +80,14 @@ export default function ProjectActivities(props: {
   );
 }
 
-// TODO: Add button to complete activity
-function ActivityCard(props: { activity: any; sx?: SxProps }) {
+function ActivityCard(props: {
+  id: string;
+  activity: any;
+  activityIndex: number;
+  sx?: SxProps;
+}) {
+  const { showDialog, closeDialog } = useContext(DialogContext);
+
   /**
    * Define activity details data
    */
@@ -115,6 +127,22 @@ function ActivityCard(props: { activity: any; sx?: SxProps }) {
         {activityDetailsUriData && (
           <Typography>{activityDetailsUriData.content}</Typography>
         )}
+        <MediumLoadingButton
+          variant="outlined"
+          onClick={() =>
+            showDialog?.(
+              <ProjectCompleteActivityDialog
+                id={props.id}
+                activityIndex={props.activityIndex}
+                activityType={props.activity.activityType}
+                onClose={closeDialog}
+              />
+            )
+          }
+          sx={{ mt: 2 }}
+        >
+          Complete Activity
+        </MediumLoadingButton>
       </Box>
     </CardBox>
   );

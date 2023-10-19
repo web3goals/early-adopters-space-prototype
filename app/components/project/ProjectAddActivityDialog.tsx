@@ -145,7 +145,7 @@ export default function ProjectAddActivityDialog(props: {
    */
   useEffect(() => {
     if (isContractWriteSuccess) {
-      showToastSuccess("Activity added, project will be updated soon!");
+      showToastSuccess("Activity added, data will be updated soon!");
       close();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -202,13 +202,17 @@ export default function ProjectAddActivityDialog(props: {
               {/* Content */}
               <WidgetBox bgcolor="#410C92" mt={2}>
                 <WidgetTitle>
-                  {ACTIVITY_TYPE_PARAMS[formValues.type].contentTitle}
+                  {
+                    ACTIVITY_TYPE_PARAMS[formValues.type].addActivityForm
+                      .contentFieldTitle
+                  }
                 </WidgetTitle>
                 <WidgetInputTextField
                   id="content"
                   name="content"
                   placeholder={
-                    ACTIVITY_TYPE_PARAMS[formValues.type].contentPlaceholder
+                    ACTIVITY_TYPE_PARAMS[formValues.type].addActivityForm
+                      .contentFieldPlaceholder
                   }
                   value={values.content}
                   onChange={handleChange}
