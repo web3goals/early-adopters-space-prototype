@@ -19,11 +19,18 @@ contract Project is ERC721URIStorage, Ownable {
         address completedActivityAuthorAddress;
     }
 
+    struct Reward {
+        uint rewardValue;
+        uint rewardRecepientsNumber;
+        string rewardDetailsURI;
+        bool isDistributed;
+    }
+
     uint256 private _nextTokenId = 1;
     mapping(uint tokenId => Activity[]) private _projectActivities;
     mapping(uint tokenId => mapping(uint activityIndex => CompletedActivity[]))
         private _projectAcceptedCompletedActivites;
-    mapping(uint256 tokenId => bool) private _projectRewardDistributionStatus;
+    mapping(uint256 tokenId => Reward) private _projectRewards;
     mapping(string activityType => address) private _activityVerifiers;
 
     constructor()
@@ -103,10 +110,11 @@ contract Project is ERC721URIStorage, Ownable {
     }
 
     function distributeReward(
-        uint256 tokenId
+        uint256 tokenId,
+        string memory rewardDetailsURI
     ) external payable onlyTokenOwner(tokenId) {
         require(
-            !_projectRewardDistributionStatus[tokenId],
+            !_projectRewards[tokenId].isDistributed,
             "Reward is already distributed"
         );
         // Define reward recipients number
@@ -132,7 +140,12 @@ contract Project is ERC721URIStorage, Ownable {
                 require(sent, "Failed to send reward");
             }
         }
-        _projectRewardDistributionStatus[tokenId] = true;
+        _projectRewards[tokenId] = Reward(
+            msg.value,
+            rewardRecipientsNumber,
+            rewardDetailsURI,
+            true
+        );
     }
 
     /// ***********************************
@@ -155,6 +168,17 @@ contract Project is ERC721URIStorage, Ownable {
         return _projectActivities[tokenId];
     }
 
+    function getAcceptedCompletedActivities(
+        uint256 tokenId,
+        uint256 activityIndex
+    ) external view returns (CompletedActivity[] memory) {
+        return _projectAcceptedCompletedActivites[tokenId][activityIndex];
+    }
+
+    function getReward(uint256 tokenId) external view returns (Reward memory) {
+        return _projectRewards[tokenId];
+    }
+
     function isCompletedActivityVerified(
         uint256 tokenId,
         uint256 activityIndex,
@@ -168,11 +192,46 @@ contract Project is ERC721URIStorage, Ownable {
             );
     }
 
-    function getAcceptedCompletedActivities(
+    function isCompletedActivityAccepted(
         uint256 tokenId,
-        uint256 activityIndex
-    ) external view returns (CompletedActivity[] memory) {
-        return _projectAcceptedCompletedActivites[tokenId][activityIndex];
+        uint256 activityIndex,
+        uint256 completedActivityId
+    ) external view returns (bool) {
+        for (
+            uint256 i = 0;
+            i <
+            _projectAcceptedCompletedActivites[tokenId][activityIndex].length;
+            i++
+        ) {
+            if (
+                _projectAcceptedCompletedActivites[tokenId][activityIndex][i]
+                    .completedActivityId == completedActivityId
+            ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function isAuthorOfAcceptedCompletedActivity(
+        uint256 tokenId,
+        address account
+    ) external view returns (bool) {
+        for (uint256 i = 0; i < _projectActivities[tokenId].length; i++) {
+            for (
+                uint256 j = 0;
+                j < _projectAcceptedCompletedActivites[tokenId][i].length;
+                j++
+            ) {
+                if (
+                    _projectAcceptedCompletedActivites[tokenId][i][j]
+                        .completedActivityAuthorAddress == account
+                ) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /// ******************************

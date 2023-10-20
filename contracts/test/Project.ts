@@ -82,6 +82,12 @@ describe.only("Project", function () {
         completedActivityIdOne
       )
     ).to.be.equal(false);
+    expect(
+      await projectContract.isAuthorOfAcceptedCompletedActivity(
+        tokenId,
+        userTwo
+      )
+    ).to.be.equal(false);
     // Accept activities
     await expect(
       projectContract
@@ -111,11 +117,19 @@ describe.only("Project", function () {
         )
       ).length
     ).to.be.equal(2);
+    expect(
+      await projectContract.isAuthorOfAcceptedCompletedActivity(
+        tokenId,
+        userTwo
+      )
+    ).to.be.equal(true);
     // Distribute reward
     await expect(
       projectContract
         .connect(userOne)
-        .distributeReward(tokenId, { value: ethers.parseEther("0.1") })
+        .distributeReward(tokenId, "ipfs://reward_1", {
+          value: ethers.parseEther("0.1"),
+        })
     ).to.changeEtherBalances(
       [userOne, userTwo, userThree],
       [
