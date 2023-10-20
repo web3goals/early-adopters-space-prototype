@@ -363,6 +363,11 @@ export const projectContractAbi = [
         name: "tokenId",
         type: "uint256",
       },
+      {
+        internalType: "string",
+        name: "rewardDetailsURI",
+        type: "string",
+      },
     ],
     name: "distributeReward",
     outputs: [],
@@ -490,6 +495,47 @@ export const projectContractAbi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+    ],
+    name: "getReward",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "rewardValue",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "rewardRecepientsNumber",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "rewardDetailsURI",
+            type: "string",
+          },
+          {
+            internalType: "bool",
+            name: "isDistributed",
+            type: "bool",
+          },
+        ],
+        internalType: "struct Project.Reward",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "owner",
         type: "address",
@@ -501,6 +547,59 @@ export const projectContractAbi = [
       },
     ],
     name: "isApprovedForAll",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "isAuthorOfAcceptedCompletedActivity",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "activityIndex",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "completedActivityId",
+        type: "uint256",
+      },
+    ],
+    name: "isCompletedActivityAccepted",
     outputs: [
       {
         internalType: "bool",
