@@ -268,9 +268,9 @@ export const projectContractAbi = [
         type: "uint256",
       },
       {
-        internalType: "uint256",
+        internalType: "string",
         name: "completedActivityId",
-        type: "uint256",
+        type: "string",
       },
       {
         internalType: "address",
@@ -392,9 +392,9 @@ export const projectContractAbi = [
       {
         components: [
           {
-            internalType: "uint256",
+            internalType: "string",
             name: "completedActivityId",
-            type: "uint256",
+            type: "string",
           },
           {
             internalType: "address",
@@ -594,9 +594,9 @@ export const projectContractAbi = [
         type: "uint256",
       },
       {
-        internalType: "uint256",
+        internalType: "string",
         name: "completedActivityId",
-        type: "uint256",
+        type: "string",
       },
     ],
     name: "isCompletedActivityAccepted",
@@ -623,9 +623,9 @@ export const projectContractAbi = [
         type: "uint256",
       },
       {
-        internalType: "uint256",
+        internalType: "string",
         name: "completedActivityId",
-        type: "uint256",
+        type: "string",
       },
     ],
     name: "isCompletedActivityVerified",
@@ -878,9 +878,9 @@ export const projectContractAbi = [
         type: "uint256",
       },
       {
-        internalType: "uint256",
+        internalType: "string",
         name: "completedActivityId",
-        type: "uint256",
+        type: "string",
       },
     ],
     name: "verifyCompletedActivity",
