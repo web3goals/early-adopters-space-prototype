@@ -230,7 +230,7 @@ export default function ProjectAddActivityDialog(props: {
                 variant="outlined"
                 loading={isFormLoading}
                 disabled={isFormSubmitDisabled}
-                sx={{ mt: 4 }}
+                sx={{ mt: 2 }}
               >
                 Submit
               </ExtraLargeLoadingButton>

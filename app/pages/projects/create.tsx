@@ -172,7 +172,7 @@ export default function CreateProject() {
     eventName: "Transfer",
     listener(log: any) {
       if (log[0].args.from === zeroAddress && log[0].args.to === address) {
-        showToastSuccess("Project is created");
+        showToastSuccess("Project is created!");
         router.push(`/projects/${log[0].args.tokenId}`);
       }
     },
