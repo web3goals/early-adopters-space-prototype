@@ -39,7 +39,11 @@ export default function Project() {
             sx={{ mt: 6 }}
           />
           <ThickDivider sx={{ mt: 6 }} />
-          <ProjectCompletedActivities id={id as string} sx={{ mt: 6 }} />
+          <ProjectCompletedActivities
+            id={id as string}
+            owner={owner as string}
+            sx={{ mt: 6 }}
+          />
         </>
       ) : (
         <FullWidthSkeleton />

@@ -22,3 +22,7 @@ export type ProjectUriData = {
 export type ProjectActivityDetailsUriData = {
   content: string;
 };
+
+export type ProjectRewardDetailsUriData = {
+  content: string;
+};
