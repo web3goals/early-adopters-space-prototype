@@ -11,7 +11,7 @@ contract TwitterActivityVerifier is IActivityVerifier {
     function isCompletedActivityVerified(
         uint256 tokenId,
         uint256 activityIndex,
-        uint256 completedActivityId
+        string memory completedActivityId
     ) external view returns (bool) {
         return false;
     }

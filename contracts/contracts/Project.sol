@@ -15,7 +15,7 @@ contract Project is ERC721URIStorage, Ownable {
     }
 
     struct CompletedActivity {
-        uint completedActivityId;
+        string completedActivityId;
         address completedActivityAuthorAddress;
     }
 
@@ -84,13 +84,13 @@ contract Project is ERC721URIStorage, Ownable {
     function verifyCompletedActivity(
         uint256 tokenId,
         uint256 activityIndex,
-        uint256 completedActivityId
+        string memory completedActivityId
     ) external onlyTokenOwner(tokenId) {}
 
     function acceptCompletedActivity(
         uint256 tokenId,
         uint256 activityIndex,
-        uint256 completedActivityId,
+        string memory completedActivityId,
         address completedActivityAuthorAddress
     ) external onlyTokenOwner(tokenId) {
         require(
@@ -182,7 +182,7 @@ contract Project is ERC721URIStorage, Ownable {
     function isCompletedActivityVerified(
         uint256 tokenId,
         uint256 activityIndex,
-        uint256 completedActivityId
+        string memory completedActivityId
     ) external view returns (bool) {
         return
             _isCompletedActivityVerified(
@@ -195,7 +195,7 @@ contract Project is ERC721URIStorage, Ownable {
     function isCompletedActivityAccepted(
         uint256 tokenId,
         uint256 activityIndex,
-        uint256 completedActivityId
+        string memory completedActivityId
     ) external view returns (bool) {
         for (
             uint256 i = 0;
@@ -204,8 +204,13 @@ contract Project is ERC721URIStorage, Ownable {
             i++
         ) {
             if (
-                _projectAcceptedCompletedActivites[tokenId][activityIndex][i]
-                    .completedActivityId == completedActivityId
+                keccak256(
+                    abi.encodePacked(
+                        _projectAcceptedCompletedActivites[tokenId][
+                            activityIndex
+                        ][i].completedActivityId
+                    )
+                ) == keccak256(abi.encodePacked(completedActivityId))
             ) {
                 return true;
             }
@@ -241,7 +246,7 @@ contract Project is ERC721URIStorage, Ownable {
     function _isCompletedActivityVerified(
         uint256 tokenId,
         uint256 activityIndex,
-        uint256 completedActivityId
+        string memory completedActivityId
     ) internal view returns (bool) {
         require(
             _projectActivities[tokenId].length > activityIndex,
