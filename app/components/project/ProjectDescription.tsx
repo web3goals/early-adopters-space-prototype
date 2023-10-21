@@ -38,7 +38,7 @@ export default function ProjectDescription(props: {
     address: chainToSupportedChainConfig(chain).contracts.profile,
     abi: profileContractAbi,
     functionName: "getURI",
-    args: [props.owner],
+    args: [props.owner as `0x${string}`],
   });
   const { data: ownerProfileUriData } = useUriDataLoader<ProfileUriData>(
     ownerProfileUri as string
@@ -51,7 +51,7 @@ export default function ProjectDescription(props: {
     address: chainToSupportedChainConfig(chain).contracts.project,
     abi: projectContractAbi,
     functionName: "tokenURI",
-    args: [props.id],
+    args: [BigInt(props.id)],
   });
   const { data: projectUriData } = useUriDataLoader<ProjectUriData>(
     projectUri as string

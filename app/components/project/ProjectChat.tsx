@@ -41,7 +41,7 @@ export default function ProjectChat(props: { id: string; sx?: SxProps }) {
     address: chainToSupportedChainConfig(chain).contracts.project,
     abi: projectContractAbi,
     functionName: "tokenURI",
-    args: [props.id],
+    args: [BigInt(props.id)],
   });
   const { data: projectUriData } = useUriDataLoader<ProjectUriData>(
     projectUri as string

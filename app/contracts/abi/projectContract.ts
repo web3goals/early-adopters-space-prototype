@@ -888,4 +888,4 @@ export const projectContractAbi = [
     stateMutability: "nonpayable",
     type: "function",
   },
-];
+] as const;

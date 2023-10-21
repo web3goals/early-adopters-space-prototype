@@ -76,7 +76,7 @@ export default function ProjectRevealMysteryBoxesDialog(props: {
     address: chainToSupportedChainConfig(chain).contracts.project,
     abi: projectContractAbi,
     functionName: "distributeReward",
-    args: [props.id, rewardDetailsDataUri],
+    args: [BigInt(props.id), rewardDetailsDataUri],
     chainId: chainToSupportedChainConfig(chain).chain.id,
     value: parseEther(String(formValues.reward)),
   });

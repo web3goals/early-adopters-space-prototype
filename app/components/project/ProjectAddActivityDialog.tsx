@@ -77,7 +77,7 @@ export default function ProjectAddActivityDialog(props: {
     address: chainToSupportedChainConfig(chain).contracts.project,
     abi: projectContractAbi,
     functionName: "addActivity",
-    args: [props.id, formValues.type, activityDetailsDataUri],
+    args: [BigInt(props.id), formValues.type, activityDetailsDataUri],
     chainId: chainToSupportedChainConfig(chain).chain.id,
   });
   const {

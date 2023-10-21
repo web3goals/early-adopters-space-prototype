@@ -50,7 +50,7 @@ export default function ProjectCompletedActivities(props: {
     address: chainToSupportedChainConfig(chain).contracts.project,
     abi: projectContractAbi,
     functionName: "getReward",
-    args: [props.id],
+    args: [BigInt(props.id)],
   });
   const { data: rewardDetailsUriData } =
     useUriDataLoader<ProjectRewardDetailsUriData>(

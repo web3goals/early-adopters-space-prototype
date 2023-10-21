@@ -613,4 +613,4 @@ export const profileContractAbi = [
     stateMutability: "nonpayable",
     type: "function",
   },
-];
+] as const;

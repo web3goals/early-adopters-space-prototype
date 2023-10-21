@@ -33,7 +33,7 @@ export default function ProjectActivities(props: {
     address: chainToSupportedChainConfig(chain).contracts.project,
     abi: projectContractAbi,
     functionName: "getActivities",
-    args: [props.id],
+    args: [BigInt(props.id)],
   });
 
   return (
