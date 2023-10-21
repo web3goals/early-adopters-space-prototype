@@ -19,6 +19,10 @@ const config: HardhatUserConfig = {
       url: process.env.RPC_URL_POLYGON_MUMBAI as string,
       accounts: accounts,
     },
+    filecoinCalibration: {
+      url: process.env.RPC_URL_FILECOIN_CALIBRATION as string,
+      accounts: accounts,
+    },
   },
   etherscan: {
     apiKey: {
