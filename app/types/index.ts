@@ -17,6 +17,7 @@ export type ProjectUriData = {
   description: string;
   link: string;
   image: string;
+  chat?: string;
 };
 
 export type ProjectActivityDetailsUriData = {

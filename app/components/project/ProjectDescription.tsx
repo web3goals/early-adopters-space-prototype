@@ -18,6 +18,7 @@ import { useContractRead, useNetwork } from "wagmi";
 import AccountAvatar from "../account/AccountAvatar";
 import AccountLink from "../account/AccountLink";
 import { FullWidthSkeleton, LargeLoadingButton } from "../styled";
+import useToasts from "@/hooks/useToast";
 
 /**
  * A component with a project description.
@@ -28,9 +29,10 @@ export default function ProjectDescription(props: {
   sx?: SxProps;
 }) {
   const { chain } = useNetwork();
+  const { showToastSuccess } = useToasts();
 
   /**
-   * Owner profile uri data
+   * Define owner profile uri data
    */
   const { data: ownerProfileUri } = useContractRead({
     address: chainToSupportedChainConfig(chain).contracts.profile,
@@ -43,16 +45,16 @@ export default function ProjectDescription(props: {
   );
 
   /**
-   * Define uri and uri data
+   * Define project uri and uri data
    */
-  const { data: uri } = useContractRead({
+  const { data: projectUri } = useContractRead({
     address: chainToSupportedChainConfig(chain).contracts.project,
     abi: projectContractAbi,
     functionName: "tokenURI",
     args: [props.id],
   });
   const { data: projectUriData } = useUriDataLoader<ProjectUriData>(
-    uri as string
+    projectUri as string
   );
 
   return (
@@ -71,7 +73,11 @@ export default function ProjectDescription(props: {
               borderRadius: 6,
               background: "#FFFFFF",
             }}
-            src={ipfsUriToHttpUri(projectUriData.image)}
+            src={
+              projectUriData.image
+                ? ipfsUriToHttpUri(projectUriData.image)
+                : undefined
+            }
           >
             <Typography fontSize={64}>🚀</Typography>
           </Avatar>
@@ -107,14 +113,24 @@ export default function ProjectDescription(props: {
             />
           </Stack>
           <Stack direction="column" spacing={1} alignItems="center" mt={4}>
-            <Link href={`/chats/${props.id}`}>
-              <LargeLoadingButton variant="contained">
-                Open Chat
-              </LargeLoadingButton>
-            </Link>
-            <Link href={`/share/${props.id}`}>
-              <LargeLoadingButton variant="outlined">Share</LargeLoadingButton>
-            </Link>
+            {projectUriData.chat && (
+              <Link href={`/projects/chats/${props.id}`}>
+                <LargeLoadingButton variant="contained">
+                  Open Chat
+                </LargeLoadingButton>
+              </Link>
+            )}
+            <LargeLoadingButton
+              variant="outlined"
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  `${global.window.location.origin}/projects/${props.id}`
+                );
+                showToastSuccess("Link copied!");
+              }}
+            >
+              Share
+            </LargeLoadingButton>
           </Stack>
         </>
       ) : (

@@ -6,6 +6,7 @@ interface ChainConfig {
     profile: `0x${string}`;
     project: `0x${string}`;
   };
+  isPushProtocolEnabled: boolean;
 }
 
 /**
@@ -13,7 +14,11 @@ interface ChainConfig {
  */
 export function getSupportedChainConfigs(): ChainConfig[] {
   const chainConfigs: ChainConfig[] = [];
-  if (process.env.NEXT_PUBLIC_POLYGON_MUMBAI_PROFILE_CONTRACT_ADDRESS) {
+  if (
+    process.env.NEXT_PUBLIC_POLYGON_MUMBAI_PROFILE_CONTRACT_ADDRESS &&
+    process.env.NEXT_PUBLIC_POLYGON_MUMBAI_PROJECT_CONTRACT_ADDRESS &&
+    process.env.NEXT_PUBLIC_POLYGON_MUMBAI_IS_PUSH_PROTOCOL_SUPPORTED
+  ) {
     chainConfigs.push({
       chain: polygonMumbai,
       contracts: {
@@ -22,6 +27,9 @@ export function getSupportedChainConfigs(): ChainConfig[] {
         project: process.env
           .NEXT_PUBLIC_POLYGON_MUMBAI_PROJECT_CONTRACT_ADDRESS as `0x${string}`,
       },
+      isPushProtocolEnabled: Boolean(
+        process.env.NEXT_PUBLIC_POLYGON_MUMBAI_IS_PUSH_PROTOCOL_SUPPORTED
+      ),
     });
   }
   return chainConfigs;
