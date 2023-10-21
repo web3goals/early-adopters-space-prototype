@@ -12,6 +12,11 @@ async function main() {
       gasLimit: 10_000_000,
     };
   }
+  if (hre.network.name === "mantleTestnet") {
+    options = {
+      gasLimit: 10_000_000,
+    };
+  }
   const contract = await ethers.deployContract("Profile", options);
   await contract.waitForDeployment();
   console.log(`✅ Contract deployed to ${contract.target}`);

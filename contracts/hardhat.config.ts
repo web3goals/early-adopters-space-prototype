@@ -23,11 +23,30 @@ const config: HardhatUserConfig = {
       url: process.env.RPC_URL_FILECOIN_CALIBRATION as string,
       accounts: accounts,
     },
+    scrollSepolia: {
+      url: process.env.RPC_URL_SCROLL_SEPOLIA as string,
+      accounts: accounts,
+    },
+    mantleTestnet: {
+      url: process.env.RPC_URL_MANTLE_TESTNET as string,
+      accounts: accounts,
+    },
   },
   etherscan: {
     apiKey: {
       polygonMumbai: process.env.ETHERSCAN_API_KEY_POLYGON_MUMBAI as string,
+      scrollSepolia: "abc",
     },
+    customChains: [
+      {
+        network: "scrollSepolia",
+        chainId: 534351,
+        urls: {
+          apiURL: "https://sepolia-blockscout.scroll.io/api",
+          browserURL: "https://sepolia-blockscout.scroll.io/",
+        },
+      },
+    ],
   },
 };
 
