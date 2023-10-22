@@ -1,6 +1,10 @@
 import EntityList from "@/components/entity/EntityList";
 import Layout from "@/components/layout";
-import { CardBox, MediumLoadingButton } from "@/components/styled";
+import {
+  CardBox,
+  FullWidthSkeleton,
+  MediumLoadingButton,
+} from "@/components/styled";
 import { projectContractAbi } from "@/contracts/abi/projectContract";
 import useUriDataLoader from "@/hooks/useUriDataLoader";
 import { theme } from "@/theme";
@@ -27,9 +31,10 @@ import {
 export default function Projects() {
   const { chain } = useNetwork();
 
-  const { data, fetchNextPage } = useContractInfiniteReads({
+  const { data, fetchNextPage, isFetched } = useContractInfiniteReads({
     cacheKey: "projectUris",
     cacheTime: 0,
+    staleTime: 0,
     ...paginatedIndexesConfig(
       (index: bigint) => {
         return [
@@ -62,19 +67,32 @@ export default function Projects() {
           </MediumLoadingButton>
         </Link>
       </Box>
-      <EntityList
-        entities={projectUris}
-        renderEntityCard={(projectUri, index) => (
-          <ProjectCard projectId={index} projectUri={projectUri} key={index} />
-        )}
-        noEntitiesText="😐 no project"
-        sx={{ mt: 2 }}
-      />
-      <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
-        <MediumLoadingButton variant="outlined" onClick={() => fetchNextPage()}>
-          Load More
-        </MediumLoadingButton>
-      </Box>
+      {isFetched ? (
+        <>
+          <EntityList
+            entities={projectUris}
+            renderEntityCard={(projectUri, index) => (
+              <ProjectCard
+                projectId={index}
+                projectUri={projectUri}
+                key={index}
+              />
+            )}
+            noEntitiesText="😐 no project"
+            sx={{ mt: 2 }}
+          />
+          <Box display="flex" flexDirection="column" alignItems="center" mt={2}>
+            <MediumLoadingButton
+              variant="outlined"
+              onClick={() => fetchNextPage()}
+            >
+              Load More
+            </MediumLoadingButton>
+          </Box>
+        </>
+      ) : (
+        <FullWidthSkeleton />
+      )}
     </Layout>
   );
 }
