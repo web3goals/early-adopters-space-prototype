@@ -205,7 +205,7 @@ function CompletedActivityCard(props: {
           </Stack>
         )}
         {/* Status */}
-        {props.reward.isDistributed && isAccepted && (
+        {props.reward && props.reward.isDistributed && isAccepted && (
           <>
             <Stack direction="row" spacing={1} mt={1}>
               <Typography>🎁</Typography>
@@ -230,7 +230,7 @@ function CompletedActivityCard(props: {
             )}
           </>
         )}
-        {props.reward.isDistributed && !isAccepted && (
+        {props.reward && props.reward.isDistributed && !isAccepted && (
           <>
             <Stack direction="row" spacing={1} mt={1}>
               <Typography>😔</Typography>
