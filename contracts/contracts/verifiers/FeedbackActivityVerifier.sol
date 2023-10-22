@@ -7,11 +7,24 @@ import "./IActivityVerifier.sol";
  * @notice A contract that stores projects.
  */
 contract FeedbackActivityVerifier is IActivityVerifier {
-    function isCompletedActivityVerified(
-        uint256 tokenId,
+    function startVerify(
+        uint256 projectId,
+        uint256 activityIndex,
+        string memory completedActivityId,
+        string memory data // Assertion claim
+    ) external {}
+
+    function finishVerify(
+        uint256 projectId,
         uint256 activityIndex,
         string memory completedActivityId
-    ) external view returns (bool) {
-        return true;
+    ) external {}
+
+    function getVerificationStatus(
+        uint256 projectId,
+        uint256 activityIndex,
+        string memory completedActivityId
+    ) external view returns (Status memory) {
+        return IActivityVerifier.Status(true, true, true);
     }
 }

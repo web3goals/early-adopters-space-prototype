@@ -26,17 +26,18 @@ contract Project is ERC721URIStorage, Ownable {
         bool isDistributed;
     }
 
-    uint256 private _nextTokenId = 1;
+    uint256 private _nextTokenId;
     mapping(uint tokenId => Activity[]) private _projectActivities;
     mapping(uint tokenId => mapping(uint activityIndex => CompletedActivity[]))
         private _projectAcceptedCompletedActivites;
     mapping(uint256 tokenId => Reward) private _projectRewards;
     mapping(string activityType => address) private _activityVerifiers;
 
-    constructor()
-        ERC721("Early Adopters Space - Projects", "EASP")
-        Ownable(msg.sender)
-    {}
+    constructor(
+        uint256 nextTokenId
+    ) ERC721("Early Adopters Space - Projects", "EASP") Ownable(msg.sender) {
+        _nextTokenId = nextTokenId;
+    }
 
     modifier onlyTokenOwner(uint256 tokenId) {
         if (_ownerOf(tokenId) != msg.sender) {
@@ -80,12 +81,44 @@ contract Project is ERC721URIStorage, Ownable {
         );
     }
 
-    // TODO:
-    function verifyCompletedActivity(
+    function startVerifyCompletedActivity(
+        uint256 tokenId,
+        uint256 activityIndex,
+        string memory completedActivityId,
+        string memory data
+    ) external onlyTokenOwner(tokenId) {
+        require(
+            _projectActivities[tokenId].length > activityIndex,
+            "Activity index is not correct"
+        );
+        Activity memory activity = _projectActivities[tokenId][activityIndex];
+        require(
+            _activityVerifiers[activity.activityType] != address(0),
+            "Activity verifier is not defined"
+        );
+        return
+            IActivityVerifier(_activityVerifiers[activity.activityType])
+                .startVerify(tokenId, activityIndex, completedActivityId, data);
+    }
+
+    function finishVerifyCompletedActivity(
         uint256 tokenId,
         uint256 activityIndex,
         string memory completedActivityId
-    ) external onlyTokenOwner(tokenId) {}
+    ) external onlyTokenOwner(tokenId) {
+        require(
+            _projectActivities[tokenId].length > activityIndex,
+            "Activity index is not correct"
+        );
+        Activity memory activity = _projectActivities[tokenId][activityIndex];
+        require(
+            _activityVerifiers[activity.activityType] != address(0),
+            "Activity verifier is not defined"
+        );
+        return
+            IActivityVerifier(_activityVerifiers[activity.activityType])
+                .finishVerify(tokenId, activityIndex, completedActivityId);
+    }
 
     function acceptCompletedActivity(
         uint256 tokenId,
@@ -179,6 +212,29 @@ contract Project is ERC721URIStorage, Ownable {
         return _projectRewards[tokenId];
     }
 
+    function getCompletedActivityVerificationStatus(
+        uint256 tokenId,
+        uint256 activityIndex,
+        string memory completedActivityId
+    ) external view returns (IActivityVerifier.Status memory) {
+        require(
+            _projectActivities[tokenId].length > activityIndex,
+            "Activity index is not correct"
+        );
+        Activity memory activity = _projectActivities[tokenId][activityIndex];
+        require(
+            _activityVerifiers[activity.activityType] != address(0),
+            "Activity verifier is not defined"
+        );
+        return
+            IActivityVerifier(_activityVerifiers[activity.activityType])
+                .getVerificationStatus(
+                    tokenId,
+                    activityIndex,
+                    completedActivityId
+                );
+    }
+
     function isCompletedActivityVerified(
         uint256 tokenId,
         uint256 activityIndex,
@@ -257,13 +313,10 @@ contract Project is ERC721URIStorage, Ownable {
             _activityVerifiers[activity.activityType] != address(0),
             "Activity verifier is not defined"
         );
-        return
-            IActivityVerifier(_activityVerifiers[activity.activityType])
-                .isCompletedActivityVerified(
-                    tokenId,
-                    activityIndex,
-                    completedActivityId
-                );
+        IActivityVerifier.Status memory verificationStatus = IActivityVerifier(
+            _activityVerifiers[activity.activityType]
+        ).getVerificationStatus(tokenId, activityIndex, completedActivityId);
+        return verificationStatus.isVerified;
     }
 
     function _update(
