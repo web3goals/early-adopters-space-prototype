@@ -115,7 +115,7 @@ function ChatMessages(props: { chat: string; sx?: SxProps }) {
       if (!signer || !props.chat) {
         return;
       }
-      const user = await PushAPI.initialize(signer, { env: ENV.STAGING });
+      const user = await PushAPI.initialize(signer, { env: ENV.PROD });
       const messages = await user.chat.history(props.chat);
       setMessages(messages);
     } catch (error: any) {

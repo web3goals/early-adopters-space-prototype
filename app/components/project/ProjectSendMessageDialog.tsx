@@ -56,7 +56,7 @@ export default function ProjectSendMessageDialog(props: {
       if (!signer) {
         throw new Error(`Signer is not defined`);
       }
-      const user = await PushAPI.initialize(signer, { env: ENV.STAGING });
+      const user = await PushAPI.initialize(signer, { env: ENV.PROD });
       await user.chat.send(props.chat, {
         type: "Text",
         content: values.message,

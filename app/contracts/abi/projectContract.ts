@@ -1,6 +1,12 @@
 export const projectContractAbi = [
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "nextTokenId",
+        type: "uint256",
+      },
+    ],
     stateMutability: "nonpayable",
     type: "constructor",
   },
@@ -386,6 +392,29 @@ export const projectContractAbi = [
         name: "activityIndex",
         type: "uint256",
       },
+      {
+        internalType: "string",
+        name: "completedActivityId",
+        type: "string",
+      },
+    ],
+    name: "finishVerifyCompletedActivity",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "activityIndex",
+        type: "uint256",
+      },
     ],
     name: "getAcceptedCompletedActivities",
     outputs: [
@@ -474,6 +503,52 @@ export const projectContractAbi = [
         internalType: "address",
         name: "",
         type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "activityIndex",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "completedActivityId",
+        type: "string",
+      },
+    ],
+    name: "getCompletedActivityVerificationStatus",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "bool",
+            name: "isVerificationStarted",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "isVerificationFinished",
+            type: "bool",
+          },
+          {
+            internalType: "bool",
+            name: "isVerified",
+            type: "bool",
+          },
+        ],
+        internalType: "struct IActivityVerifier.Status",
+        name: "",
+        type: "tuple",
       },
     ],
     stateMutability: "view",
@@ -781,6 +856,34 @@ export const projectContractAbi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "activityIndex",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "completedActivityId",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "data",
+        type: "string",
+      },
+    ],
+    name: "startVerifyCompletedActivity",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "bytes4",
         name: "interfaceId",
         type: "bytes4",
@@ -861,29 +964,6 @@ export const projectContractAbi = [
       },
     ],
     name: "transferOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "activityIndex",
-        type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "completedActivityId",
-        type: "string",
-      },
-    ],
-    name: "verifyCompletedActivity",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

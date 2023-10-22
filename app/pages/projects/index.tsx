@@ -40,7 +40,7 @@ export default function Projects() {
           },
         ];
       },
-      { start: 0, perPage: 30, direction: "increment" }
+      { start: 0, perPage: 50, direction: "increment" }
     ),
   });
 

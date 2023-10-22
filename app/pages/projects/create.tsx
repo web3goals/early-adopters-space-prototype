@@ -155,7 +155,7 @@ export default function CreateProject() {
         if (!signer) {
           throw new Error(`Signer is not defined`);
         }
-        const user = await PushAPI.initialize(signer, { env: ENV.STAGING });
+        const user = await PushAPI.initialize(signer, { env: ENV.PROD });
         const customEndpointUrl = `${
           process.env.NEXT_PUBLIC_APP_URL
         }/api/checkProjectChatAccess/?projectId=${nextProjectId}&userDid={{user_address}}&chainId=${
