@@ -7,11 +7,17 @@ Allow early adopters to help you create the next big thing and be a part of your
 - Application - [early-adopters-space-prototype.vercel.app](https://early-adopters-space-prototype.vercel.app/)
 - Contracts:
   - Polygon Mumbai:
-    - Profile - ...
-    - Project - ...
-- Tableland Studio:
-  - Team name - kiv1n
-  - Dev address - 0x4306D7a79265D2cb85Db0c5a55ea5F4f6F73C4B1
+    - Profile - 0xa6C30b789EECf0670C10291C5F54a307fFcd3dfA
+    - Project - 0xbAFC6103260C491e268c620C6Eb691C941Cb27da
+  - Filecoin Calibration:
+    - Profile - 0x0702Ae9aff3031a242233F01F1FB35b03AF18a50
+    - Project - 0x57d1469c53Bb259Dc876A274ADd329Eb703Ab286
+  - Polygon Mumbai:
+    - Profile - 0x96E6AF6E9e400d0Cd6a4045F122df22BCaAAca59
+    - Project - 0x02008a8DBc938bd7930bf370617065B6B0c1221a
+  - Polygon Mumbai:
+    - Profile - 0x679933EdbbC8861171ccA4829C1B926433c549f0
+    - Project - 0x54f8aA5F76236af430102759F969Fa12422c7B42
 
 ## ✨ Description
 
