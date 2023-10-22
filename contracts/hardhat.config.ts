@@ -13,7 +13,16 @@ if (process.env.PRIVATE_KEY_2) {
 }
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.20",
+  solidity: {
+    version: "0.8.20",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+      viaIR: true,
+    },
+  },
   networks: {
     polygonMumbai: {
       url: process.env.RPC_URL_POLYGON_MUMBAI as string,

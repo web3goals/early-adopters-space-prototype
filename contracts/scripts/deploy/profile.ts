@@ -9,7 +9,7 @@ async function main() {
     options = {
       maxFeePerGas: 100,
       maxPriorityFeePerGas: 100,
-      gasLimit: 10_000_000,
+      gasLimit: 200_000_000,
     };
   }
   if (hre.network.name === "mantleTestnet") {
