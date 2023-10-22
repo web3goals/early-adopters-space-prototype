@@ -1,4 +1,10 @@
-import { Chain, polygonMumbai } from "wagmi/chains";
+import {
+  Chain,
+  filecoinCalibration,
+  mantleTestnet,
+  polygonMumbai,
+  scrollSepolia,
+} from "wagmi/chains";
 
 interface ChainConfig {
   chain: Chain;
@@ -16,8 +22,7 @@ export function getSupportedChainConfigs(): ChainConfig[] {
   const chainConfigs: ChainConfig[] = [];
   if (
     process.env.NEXT_PUBLIC_POLYGON_MUMBAI_PROFILE_CONTRACT_ADDRESS &&
-    process.env.NEXT_PUBLIC_POLYGON_MUMBAI_PROJECT_CONTRACT_ADDRESS &&
-    process.env.NEXT_PUBLIC_POLYGON_MUMBAI_IS_PUSH_PROTOCOL_SUPPORTED
+    process.env.NEXT_PUBLIC_POLYGON_MUMBAI_PROJECT_CONTRACT_ADDRESS
   ) {
     chainConfigs.push({
       chain: polygonMumbai,
@@ -29,6 +34,57 @@ export function getSupportedChainConfigs(): ChainConfig[] {
       },
       isPushProtocolEnabled: Boolean(
         process.env.NEXT_PUBLIC_POLYGON_MUMBAI_IS_PUSH_PROTOCOL_SUPPORTED
+      ),
+    });
+  }
+  if (
+    process.env.NEXT_PUBLIC_FILECOIN_CALIBRATION_PROFILE_CONTRACT_ADDRESS &&
+    process.env.NEXT_PUBLIC_FILECOIN_CALIBRATION_PROJECT_CONTRACT_ADDRESS
+  ) {
+    chainConfigs.push({
+      chain: filecoinCalibration,
+      contracts: {
+        profile: process.env
+          .NEXT_PUBLIC_FILECOIN_CALIBRATION_PROFILE_CONTRACT_ADDRESS as `0x${string}`,
+        project: process.env
+          .NEXT_PUBLIC_FILECOIN_CALIBRATION_PROJECT_CONTRACT_ADDRESS as `0x${string}`,
+      },
+      isPushProtocolEnabled: Boolean(
+        process.env.NEXT_PUBLIC_FILECOIN_CALIBRATION_IS_PUSH_PROTOCOL_SUPPORTED
+      ),
+    });
+  }
+  if (
+    process.env.NEXT_PUBLIC_SCROLL_SEPOLIA_PROFILE_CONTRACT_ADDRESS &&
+    process.env.NEXT_PUBLIC_SCROLL_SEPOLIA_PROJECT_CONTRACT_ADDRESS
+  ) {
+    chainConfigs.push({
+      chain: scrollSepolia,
+      contracts: {
+        profile: process.env
+          .NEXT_PUBLIC_SCROLL_SEPOLIA_PROFILE_CONTRACT_ADDRESS as `0x${string}`,
+        project: process.env
+          .NEXT_PUBLIC_SCROLL_SEPOLIA_PROJECT_CONTRACT_ADDRESS as `0x${string}`,
+      },
+      isPushProtocolEnabled: Boolean(
+        process.env.NEXT_PUBLIC_SCROLL_SEPOLIA_IS_PUSH_PROTOCOL_SUPPORTED
+      ),
+    });
+  }
+  if (
+    process.env.NEXT_PUBLIC_MANTLE_TESTNET_PROFILE_CONTRACT_ADDRESS &&
+    process.env.NEXT_PUBLIC_MANTLE_TESTNET_PROJECT_CONTRACT_ADDRESS
+  ) {
+    chainConfigs.push({
+      chain: mantleTestnet,
+      contracts: {
+        profile: process.env
+          .NEXT_PUBLIC_MANTLE_TESTNET_PROFILE_CONTRACT_ADDRESS as `0x${string}`,
+        project: process.env
+          .NEXT_PUBLIC_MANTLE_TESTNET_PROJECT_CONTRACT_ADDRESS as `0x${string}`,
+      },
+      isPushProtocolEnabled: Boolean(
+        process.env.NEXT_PUBLIC_MANTLE_TESTNET_IS_PUSH_PROTOCOL_SUPPORTED
       ),
     });
   }

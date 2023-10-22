@@ -29,6 +29,7 @@ export default function Projects() {
 
   const { data, fetchNextPage } = useContractInfiniteReads({
     cacheKey: "projectUris",
+    cacheTime: 0,
     ...paginatedIndexesConfig(
       (index: bigint) => {
         return [
