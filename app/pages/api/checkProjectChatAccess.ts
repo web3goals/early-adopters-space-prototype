@@ -36,9 +36,11 @@ export default async function handler(
     // Return result
     if (!isAccessAllowed) {
       res.status(403).json({ status: "Access denied" });
+    } else {
+      res.status(200).json({ status: "Access allowed" });
     }
-    res.status(200).json({ status: "Access allowed" });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: errorToPrettyError(error) });
   }
 }
