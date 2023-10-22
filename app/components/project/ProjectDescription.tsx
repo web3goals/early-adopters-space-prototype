@@ -113,13 +113,14 @@ export default function ProjectDescription(props: {
             />
           </Stack>
           <Stack direction="column" spacing={1} alignItems="center" mt={4}>
-            {projectUriData.chat && (
-              <Link href={`/projects/chats/${props.id}`}>
-                <LargeLoadingButton variant="contained">
-                  Open Chat
-                </LargeLoadingButton>
-              </Link>
-            )}
+            {chainToSupportedChainConfig(chain).isPushProtocolEnabled &&
+              projectUriData.chat && (
+                <Link href={`/projects/chats/${props.id}`}>
+                  <LargeLoadingButton variant="contained">
+                    Open Chat
+                  </LargeLoadingButton>
+                </Link>
+              )}
             <LargeLoadingButton
               variant="outlined"
               onClick={() => {

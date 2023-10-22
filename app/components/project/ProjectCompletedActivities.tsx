@@ -1,4 +1,7 @@
-import { ACTIVITY_TYPE_SEND_FEEDBACK } from "@/constants/activities";
+import {
+  ACTIVITY_TYPE_FOLLOW_TWITTER,
+  ACTIVITY_TYPE_SEND_FEEDBACK,
+} from "@/constants/activities";
 import { DialogContext } from "@/context/dialog";
 import { profileContractAbi } from "@/contracts/abi/profileContract";
 import useError from "@/hooks/useError";
@@ -202,6 +205,16 @@ function CompletedActivityCard(props: {
             >
               feedback
             </MuiLink>
+          </Stack>
+        )}
+        {props.completedActivity.activity_type ===
+          ACTIVITY_TYPE_FOLLOW_TWITTER && (
+          <Stack direction="row" spacing={1} mt={1}>
+            <Typography>🐥</Typography>
+            <Typography>
+              Followed twitter through{" "}
+              <strong>{props.completedActivity.content}</strong>
+            </Typography>
           </Stack>
         )}
         {/* Status */}

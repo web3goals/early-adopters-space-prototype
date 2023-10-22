@@ -125,7 +125,7 @@ function ActivityCard(props: {
           {ACTIVITY_TYPE_PARAMS[props.activity.activityType].title}
         </Typography>
         {activityDetailsUriData && (
-          <Typography>{activityDetailsUriData.content}</Typography>
+          <Typography mt={1}>{activityDetailsUriData.content}</Typography>
         )}
         <MediumLoadingButton
           variant="outlined"
