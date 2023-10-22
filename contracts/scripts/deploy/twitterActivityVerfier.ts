@@ -1,6 +1,8 @@
 import { ethers } from "hardhat";
 import hre from "hardhat";
 
+const ACTIVITY_TYPE_SEND_FEEDBACK = "FOLLOW_TWITTER";
+
 async function main() {
   console.log("👟 Start to deploy twitter activity verifier contracts");
   let oracleAddress;
@@ -20,6 +22,19 @@ async function main() {
   console.log(
     `✅ Twitter activity verifier contract deployed to ${contract.target}`
   );
+  const projectContractAddress = "0xbAFC6103260C491e268c620C6Eb691C941Cb27da";
+  if (projectContractAddress) {
+    const projectContract = await ethers.getContractAt(
+      "Project",
+      projectContractAddress
+    );
+    await projectContract.setActivityVerifier(
+      ACTIVITY_TYPE_SEND_FEEDBACK,
+      contract.getAddress(),
+      {}
+    );
+    console.log(`✅ Twitter activity verifier is set into project contract`);
+  }
 }
 
 main().catch((error) => {
