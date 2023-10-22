@@ -3,6 +3,7 @@ import Layout from "@/components/layout";
 import { CardBox, MediumLoadingButton } from "@/components/styled";
 import { projectContractAbi } from "@/contracts/abi/projectContract";
 import useUriDataLoader from "@/hooks/useUriDataLoader";
+import { theme } from "@/theme";
 import { ProjectUriData } from "@/types";
 import { chainToSupportedChainConfig } from "@/utils/chains";
 import { ipfsUriToHttpUri } from "@/utils/converters";
@@ -102,7 +103,7 @@ function ProjectCard(props: {
             width: 64,
             height: 64,
             borderRadius: 2,
-            background: "#FFFFFF",
+            background: theme.palette.divider,
           }}
           src={
             projectUriData?.image

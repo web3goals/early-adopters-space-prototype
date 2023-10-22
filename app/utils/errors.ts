@@ -18,6 +18,9 @@ export function errorToPrettyError(error: any): {
   if (error?.error?.data?.message) {
     message = error.error.data.message.replace("execution reverted: ", "");
   }
+  if (message.includes("Activity verifier is not defined")) {
+    message = "This type of activity is not supported in this chain";
+  }
   return {
     message: message,
     severity: severity,
