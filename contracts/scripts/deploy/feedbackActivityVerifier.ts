@@ -1,11 +1,27 @@
 import { ethers } from "hardhat";
+import hre from "hardhat";
+import { DeployContractOptions } from "@nomicfoundation/hardhat-ethers/types";
 
 const ACTIVITY_TYPE_SEND_FEEDBACK = "SEND_FEEDBACK";
 
 async function main() {
   console.log("👟 Start to deploy feedback activity verifier contracts");
+  let options: DeployContractOptions | undefined;
+  if (hre.network.name === "filecoinCalibration") {
+    options = {
+      maxFeePerGas: 100,
+      maxPriorityFeePerGas: 100,
+      gasLimit: 200_000_000,
+    };
+  }
+  if (hre.network.name === "mantleTestnet") {
+    options = {
+      gasLimit: 10_000_000,
+    };
+  }
   const feedbackActivityVerifierContract = await ethers.deployContract(
-    "FeedbackActivityVerifier"
+    "FeedbackActivityVerifier",
+    options
   );
   await feedbackActivityVerifierContract.waitForDeployment();
   console.log(
@@ -17,9 +33,10 @@ async function main() {
       "Project",
       projectContractAddress
     );
-    projectContract.setActivityVerifier(
+    await projectContract.setActivityVerifier(
       ACTIVITY_TYPE_SEND_FEEDBACK,
-      feedbackActivityVerifierContract.getAddress()
+      feedbackActivityVerifierContract.getAddress(),
+      {}
     );
     console.log(`✅ Feedback activity verifier is set into project contract`);
   }
